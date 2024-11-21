@@ -1,0 +1,14 @@
+sudo apt update
+<-------------------------INSTALL JAVA------------------------->
+sudo apt install openjdk-17-jre-headless
+java -version
+<-------------------------INSTALL GIT------------------------->
+sudo apt install git
+git -v
+
+Go to "https://www.jenkins.io/download/" and download jar file LTS version
+
+java -jar jenkins.war
+
+localhost:8080 => type password 946bc838542e456b90d0fbddadd0b2c8
+
