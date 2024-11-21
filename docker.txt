@@ -1,0 +1,122 @@
+DOCKER:
+
+1. sudo apt update
+2. sudo apt install docker.io
+3. sudo systemctl start docker
+4. sudo systemctl enable docker
+
+5. mkdir flaskapp
+6. cd flaskapp
+7. app.py
+##
+from flask import Flask
+app=Flask(__name__)
+@app.route('/')
+def run():
+    return "Hello world”
+if __name__ == "__main__":
+    app.run(host='0.0.0.0',port=5000)
+
+8. requirements.txt
+##
+Flask==2.3.2
+      
+9. Dockerflie
+##
+FROM python:3.10
+WORKDIR /app
+COPY . /app
+RUN pip install -r requirements.txt
+EXPOSE 5000
+CMD ["python3","app.py"]
+
+10. sudo docker pull python:3.10
+11.⁠ sudo docker build -t flaskapp .
+12. sudo docker build -t flaskapp .
+13. sudo docker run -p 5000:5000 flaskapp
+14. PUSH&PULL
+
+docker login -u selcia25
+dckr_pat_KYGhDm1IF59UggbfKXddplfTDY8
+
+sudo docker build -t selcia25/flaskapp .
+sudo docker run -p 5000:5000 selcia25/flaskapp
+
+sudo usermod -aG docker selcia
+
+docker push selcia25/flaskapp
+docker pull selcia25/flaskapp
+
+
+
+
+LOAD BALANCING:
+IN THE DIRECTORY OF flaskapp
+docker build -t new_flask
+docker run -d --name app1 -p 5001:5000 new_flask
+docker run -d --name app2 -p 5002:5000 new_flask
+docker run -d --name app3 -p 5003:5000 new_flask
+
+
+if error for port not found:
+docker ps -a
+docker stop container_id
+docker rm container_id
+
+
+sudo apt update
+sudo apt install -y nginx
+cd /etc/nginx/sites-available
+
+
+sudo nano new_flask
+
+
+upstream flask_app {
+    server 127.0.0.1:6001;
+    server 127.0.0.1:6002;
+    server 127.0.0.1:6003;
+}
+
+
+server {
+    listen 80;
+
+
+    location / {
+        proxy_pass http://flask_app;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+}
+ctrl+x,Y,enter
+
+
+
+
+
+
+sudo ln -s /etc/nginx/sites-available/new_flask/etc/nginx/sites-enabled/
+sudo nginx -t
+
+
+.
+.
+.      test is successful
+
+
+sudo systemctl restart nginx
+sudo systemctl status nginx
+
+
+Sometimes close aagadhu go to new terminal and do below
+
+
+hostname -I
+smtg 10.0.2.15
+
+
+http://10.0.2.15/   -----> nginx page
+http://10.0.2.15:5001
