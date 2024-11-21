@@ -1,0 +1,10 @@
+﻿SSH:
+ 
+1) sudo apt install openssh-server
+2) ssh-keygen or ssh-keygen -t rsa -b 2048
+3) put 2 times enter and in overwrite give ‘y’
+4) run ‘ifconfig’ on other system to get ip address and it will there in wlo:1 - inet 
+5) run who i am to get name of the other 
+6) ssh-copy-id {username}@{ip addr of other}
+7) asks password of other system and enter it
+8) ssh {username}@{ip add}
